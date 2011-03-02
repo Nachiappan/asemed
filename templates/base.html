@@ -1,0 +1,47 @@
+<! doctype html >
+<html>
+<head>
+<title>{% block title %}WELCOME{% endblock %} | ASEMED</title>
+<link rel="stylesheet" href="/static/css/base.css">
+<script src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+    $('#menu li:nth-child({% block menu_item_order %}{% endblock %})').addClass('current');
+});
+</script>
+{% block head %}
+{% endblock %}
+</head>
+<body>
+<header>
+<h1>ASEMED</h1>
+</header>
+{% if request.user.is_authenticated %}
+<div style="float:right;">Hello {{ request.user }} | <a href="{% url auth_logout %}">Logout</a></div>
+{% else %}
+<div style="float:right;"><a href="{% url registration_register %}">Register</a> | <a href="{% url auth_login %}">Login</a></div>
+{% endif %}
+</aside>
+<div id="container">
+<nav>
+<ul id="menu">
+<li><a href="{% url home %}">Home</a></li>
+</ul>
+</nav>
+<section id="contents">
+{% block contents %}
+{% endblock %}
+</section>
+</div>
+<footer>
+<nav>
+<ul id="footer-navigation">
+<li><a href="{% url home %}">Home</a></li>
+</ul>
+</nav>
+<div id="copyright_notice">
+&copy; Copyright. All rights reserved.
+</div>
+</footer>
+</body>
+</html>
